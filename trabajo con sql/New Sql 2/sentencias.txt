@@ -1,0 +1,82 @@
+CREATE TABLE employees (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, -- No necesario
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    hire_at DATE,  -- No necesario
+    salary DECIMAL(10, 2) NOT NULL,
+    status ENUM('active', 'inactive') DEFAULT 'active', -- No necesario
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- No necesario
+);
+
+CREATE TABLE projects(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name  VARCHAR(50),
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- M:M
+CREATE TABLE project_employees(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    
+    employe_id INT UNSIGNED NOT NULL,
+    project_id INT UNSIGNED NOT NULL,
+    
+    FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE,
+    FOREIGN KEY (employe_id) REFERENCES employees(id) ON DELETE CASCADE,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO projects(name, description) VALUES ('test', 'test');
+
+-- CRUD
+INSERT INTO employees(first_name, last_name, email, salary) VALUES ('Eduardo', 'García', 'eduardo@codigofacilito.com', 1000.00);
+
+SELECT * FROM employees;
+
+UPDATE employees SET first_name = 'user1', last_name = 'user1'; -- UPDATE
+UPDATE employees SET first_name = 'Eduardo', last_name = 'García' WHERE id = 1;
+
+DELETE FROM employees
+WHERE id = 1;
+
+TRUNCATE employees;
+
+-- ON DELETE CASCADE
+
+INSERT INTO employees (id, first_name, last_name, email, hire_at, salary, created_at, status)
+VALUES
+    (1, 'John', 'Doe', 'john.doe@example.com', '2022-01-10', 50000.00, NOW(), 'active'),
+    (2, 'Jane', 'Smith', 'jane.smith@example.com', '2022-02-15', 55000.00, NOW(), 'active'),
+    (3, 'Michael', 'Johnson', 'michael.johnson@example.com', '2022-03-20', 60000.00, NOW(), 'inactive'),
+    (4, 'Emily', 'Williams', 'emily.williams@example.com', '2022-04-25', 52000.00, NOW(), 'active'),
+    (5, 'William', 'Brown', 'william.brown@example.com', '2022-05-30', 48000.00, NOW(), 'active'),
+    (6, 'Olivia', 'Jones', 'olivia.jones@example.com', '2022-06-05', 53000.00, NOW(), 'active'),
+    (7, 'James', 'Davis', 'james.davis@example.com', '2022-07-10', 55000.00, NOW(), 'active'),
+    (8, 'Emma', 'Miller', 'emma.miller@example.com', '2022-08-15', 60000.00, NOW(), 'active'),
+    (9, 'Benjamin', 'Garcia', 'benjamin.garcia@example.com', '2022-09-20', 49000.00, NOW(), 'active'),
+    (10, 'Sophia', 'Martinez', 'sophia.martinez@example.com', '2022-10-25', 54000.00, NOW(), 'active'),
+    (11, 'Liam', 'Rodriguez', 'liam.rodriguez@example.com', '2022-11-30', 51000.00, NOW(), 'active'),
+    (12, 'Ava', 'Lopez', 'ava.lopez@example.com', '2022-12-05', 59000.00, NOW(), 'active'),
+    (13, 'Henry', 'Hernandez', 'henry.hernandez@example.com', '2023-01-10', 50000.00, NOW(), 'inactive'),
+    (14, 'Mia', 'Gonzalez', 'mia.gonzalez@example.com', '2023-02-15', 55000.00, NOW(), 'active'),
+    (15, 'Alexander', 'Perez', 'alexander.perez@example.com', '2023-03-20', 60000.00, NOW(), 'active'),
+    (16, 'Ella', 'Wilson', 'ella.wilson@example.com', '2023-04-25', 52000.00, NOW(), 'active'),
+    (17, 'Daniel', 'Moore', 'daniel.moore@example.com', '2023-05-30', 48000.00, NOW(), 'active'),
+    (18, 'Grace', 'Taylor', 'grace.taylor@example.com', '2023-06-05', 53000.00, NOW(), 'active'),
+    (19, 'Michael', 'Jackson', 'michael.jackson@example.com', '2023-07-10', 55000.00, NOW(), 'active'),
+    (20, 'Chloe', 'White', 'chloe.white@example.com', '2023-08-15', 60000.00, NOW(), 'active'),
+    (21, 'William', 'Harris', 'william.harris@example.com', '2023-09-20', 49000.00, NOW(), 'inactive'),
+    (22, 'Sophia', 'Clark', 'sophia.clark@example.com', '2023-10-25', 54000.00, NOW(), 'active'),
+    (23, 'Ethan', 'Lewis', 'ethan.lewis@example.com', '2023-11-30', 51000.00, NOW(), 'active'),
+    (24, 'Isabella', 'Walker', 'isabella.walker@example.com', '2023-12-05', 59000.00, NOW(), 'active'),
+    (25, 'James', 'Young', 'james.young@example.com', '2024-01-10', 50000.00, NOW(), 'active'),
+    (26, 'Avery', 'Wright', 'avery.wright@example.com', '2024-02-15', 55000.00, NOW(), 'active'),
+    (27, 'Logan', 'Martin', 'logan.martin@example.com', '2024-03-20', 60000.00, NOW(), 'active'),
+    (28, 'Sophia', 'Hall', 'sophia.hall@example.com', '2024-04-25', 52000.00, NOW(), 'active'),
+    (29, 'Henry', 'Allen', 'henry.allen@example.com', '2024-01-19', 48000.00, NOW(), 'active'),
+    (30, 'Olivia', 'Baker', 'olivia.baker@example.com', '2024-01-19', 53000.00, NOW(), 'active');
+
+-
